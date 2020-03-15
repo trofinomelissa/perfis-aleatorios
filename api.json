@@ -1,0 +1,66 @@
+{
+   "results":[
+      {
+         "gender":"female",
+         "name":{
+            "title":"Mrs",
+            "first":"Hannah",
+            "last":"Scott"
+         },
+         "location":{
+            "street":{
+               "number":4827,
+               "name":"36th Ave"
+            },
+            "city":"South River",
+            "state":"Manitoba",
+            "country":"Canada",
+            "postcode":"K5F 4G0",
+            "coordinates":{
+               "latitude":"-65.3622",
+               "longitude":"73.4906"
+            },
+            "timezone":{
+               "offset":"-10:00",
+               "description":"Hawaii"
+            }
+         },
+         "email":"hannah.scott@example.com",
+         "login":{
+            "uuid":"8d8171c3-16d7-440b-9f9e-50543a909ed0",
+            "username":"tinygoose109",
+            "password":"momomo",
+            "salt":"z3BsdSu0",
+            "md5":"e2dd0f3052f19c99bdfe34d9d29656c4",
+            "sha1":"71f6d79cfc6fc99f6f7f4cfffe9d19c32a89731b",
+            "sha256":"0670442feb0b26ae10fde6e208b99ab0d22e2ab88a4aca1da2f572c2fe6e2099"
+         },
+         "dob":{
+            "date":"1961-10-07T20:03:20.981Z",
+            "age":59
+         },
+         "registered":{
+            "date":"2007-08-24T10:26:32.772Z",
+            "age":13
+         },
+         "phone":"660-698-0660",
+         "cell":"350-939-3256",
+         "id":{
+            "name":"",
+            "value":null
+         },
+         "picture":{
+            "large":"https://randomuser.me/api/portraits/women/22.jpg",
+            "medium":"https://randomuser.me/api/portraits/med/women/22.jpg",
+            "thumbnail":"https://randomuser.me/api/portraits/thumb/women/22.jpg"
+         },
+         "nat":"CA"
+      }
+   ],
+   "info":{
+      "seed":"26b41e41c526be9d",
+      "results":1,
+      "page":1,
+      "version":"1.3"
+   }
+}
