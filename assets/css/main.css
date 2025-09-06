@@ -1,17 +1,12 @@
-body {
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Paleta moderna para gêneros */
+body { font-family: 'Roboto', sans-serif; }
 :root {
-    /* Paleta mais vibrante */
-    --male-bg: #3b82f6;           /* Blue 500 */
-    --male-bg-accent: #1d4ed8;    /* Blue 700 */
-    --female-bg: #ec4899;         /* Pink 500 */
-    --female-bg-accent: #be185d;  /* Pink 700 */
-    --other-bg: #f59e0b;          /* Amber 500 */
-    --other-bg-accent: #d97706;   /* Amber 600 */
-    --on-gender-text: #ffffff;    /* Texto principal sobre fundo vibrante */
+    --male-bg: #3b82f6;
+    --male-bg-accent: #1d4ed8;
+    --female-bg: #ec4899;
+    --female-bg-accent: #be185d;
+    --other-bg: #f59e0b;
+    --other-bg-accent: #d97706;
+    --on-gender-text: #ffffff;
     --on-gender-shadow: rgba(0,0,0,0.35);
     --card-glow: 0 4px 14px rgba(0,0,0,0.25);
 }
@@ -68,18 +63,7 @@ h5 {
 }
 
 
-.profile-photo {
-    border-radius: 12px;
-    width: 140px; /* ~55%-70% do tamanho grande original */
-    height: 140px;
-    object-fit: cover;
-    display: block;
-    margin: 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    border: 4px solid rgba(255,255,255,0.7);
-    background: #fff;
-}
-/* Destaque para nome, email, cidade e país */
+.profile-photo { border-radius: 12px; width: 140px; height: 140px; object-fit: cover; display: block; margin: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.25); border: 4px solid rgba(255,255,255,0.7); background: #fff; }
 .profile-name {
     font-size: 1.8rem;
     font-weight: 800;
@@ -117,7 +101,6 @@ h5 {
     margin: 10px;
 }
 
-/* Layout novo: foto esquerda, texto direita */
 .profile-card.card {
     padding: 1.25rem 1.5rem;
     border: none;
@@ -126,7 +109,6 @@ h5 {
     overflow: hidden;
 }
 
-/* Wrapper animável (exclui botão) */
 .profile-card-content {
     display: flex;
     flex-direction: row;
@@ -147,11 +129,11 @@ h5 {
 
 .profile-fields-group {
     display: grid;
-    grid-template-columns: 30px 1fr; /* ícone | valor */
+    grid-template-columns: 30px 1fr;
     column-gap: .6rem;
     row-gap: .55rem;
     font-size: .95rem;
-    align-items: center; /* alinha verticalmente botão e texto */
+    align-items: center;
 }
 
 .profile-label {
@@ -193,21 +175,18 @@ h5 {
 
 .copy-feedback { font-size: .65rem; margin-left: .5rem; color: #111; font-weight: 600; }
 
-/* Melhor contraste sobre fundos coloridos */
 .female, .male, .other-gender {
     color: var(--on-gender-text);
     position: relative;
     text-shadow: 0 1px 2px var(--on-gender-shadow);
 }
 
-/* Ajustes de cores internas para melhor contraste */
 .female .profile-email, .female .profile-location, .female .profile-name,
 .male .profile-email, .male .profile-location, .male .profile-name,
 .other-gender .profile-email, .other-gender .profile-location, .other-gender .profile-name {
     color: var(--on-gender-text);
 }
 
-/* Botões ícones sobre fundo vibrante: versão translúcida clara */
 .female .copy-icon-btn, .male .copy-icon-btn, .other-gender .copy-icon-btn {
     background: rgba(255,255,255,0.85);
 }
@@ -230,7 +209,6 @@ h5 {
     .profile-photo { width: 160px; height: 160px; }
 }
 
-/* Botão Novo Perfil dentro do card */
 .new-profile-btn {
     position: absolute;
     top: 10px;
@@ -248,7 +226,7 @@ h5 {
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     transition: background .2s, transform .15s, box-shadow .25s;
-    z-index: 10; /* garantir que fique acima do conteúdo animado */
+    z-index: 10;
     touch-action: manipulation;
 }
 .new-profile-btn:hover { background: #222; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
@@ -256,15 +234,8 @@ h5 {
 .new-profile-btn i { pointer-events: none; }
 .new-profile-btn:focus { outline: 2px solid #fff; outline-offset: 2px; }
 
-/* Área de clique levemente ampliada (hit area) */
-.new-profile-btn::after {
-    content: "";
-    position: absolute;
-    inset: -6px; /* aumenta área sem mudar visual */
-    border-radius: 18px;
-}
+.new-profile-btn::after { content: ""; position: absolute; inset: -6px; border-radius: 18px; }
 
-/* Garantir que conteúdo não sobreponha botão */
 .profile-card-content { position: relative; z-index: 1; }
 .profile-card.card.updating { animation: none; }
 .profile-card-content.updating { animation: none !important; }

@@ -1,5 +1,4 @@
-// Utilitário simples para evitar inserção de HTML indevido
-function escapeHTML(str) {
+function sanitize(str) {
     if (str === null || str === undefined) return '';
     return String(str)
         .replace(/&/g, '&amp;')
@@ -9,34 +8,27 @@ function escapeHTML(str) {
         .replace(/'/g, '&#39;');
 }
 
-class Profile {
+class ProfileCardRenderer {
     constructor() {
-        this.profileList = document.getElementById('profiles');
+        this.container = document.getElementById('profiles');
     }
 
-    add(data) {
-        // Validação básica dos dados
+    render(data) {
         if (!data || !Array.isArray(data.results) || data.results.length === 0) {
             console.error('Invalid data: results array is missing or empty.');
             return;
         }
 
-        const profile = data.results[0];
+        const user = data.results[0];
 
-        // Determina classe de gênero
-        let genderClass = 'other-gender';
-        if (profile.gender === 'female') genderClass = 'female';
-        else if (profile.gender === 'male') genderClass = 'male';
+        const genderClass = user.gender === 'female' ? 'female' : user.gender === 'male' ? 'male' : 'other-gender';
+        const fullName = `${sanitize(user.name.first)} ${sanitize(user.name.last)}`;
+        const email = sanitize(user.email);
+        const cityState = `${sanitize(user.location.city)}, ${sanitize(user.location.state)}`;
+        const country = sanitize(user.location.country);
+        const pictureLarge = sanitize(user.picture.large);
 
-        // Campos tratados
-        const fullName = `${escapeHTML(profile.name.first)} ${escapeHTML(profile.name.last)}`;
-        const email = escapeHTML(profile.email);
-        const cityState = `${escapeHTML(profile.location.city)}, ${escapeHTML(profile.location.state)}`;
-        const country = escapeHTML(profile.location.country);
-        const pictureLarge = escapeHTML(profile.picture.large);
-
-        // Monta HTML do card
-        this.profileList.innerHTML = `
+        this.container.innerHTML = `
         <div class="col-12">
             <div class="profile-card card ${genderClass}">
                 <button id="btnNewProfile" class="new-profile-btn" aria-label="Gerar novo perfil" title="Novo perfil">
@@ -51,13 +43,10 @@ class Profile {
                         <div class="profile-fields-group mt-2">
                             <button class="copy-icon-btn" data-copy="name" aria-label="Copiar nome"><i class="bi bi-clipboard"></i></button>
                             <div class="profile-name profile-value" data-field="name">${fullName}</div>
-
                             <button class="copy-icon-btn" data-copy="email" aria-label="Copiar email"><i class="bi bi-clipboard"></i></button>
                             <div class="profile-email profile-value" data-field="email">${email}</div>
-
                             <button class="copy-icon-btn" data-copy="cityState" aria-label="Copiar cidade e estado"><i class="bi bi-clipboard"></i></button>
                             <div class="profile-location profile-value" data-field="cityState">${cityState}</div>
-
                             <button class="copy-icon-btn" data-copy="country" aria-label="Copiar país"><i class="bi bi-clipboard"></i></button>
                             <div class="profile-location profile-value" data-field="country">${country}</div>
                         </div>
@@ -67,23 +56,24 @@ class Profile {
             </div>
         </div>`;
 
-        // Reinicia animação (aplicamos classe no próprio content)
-        const content = this.profileList.querySelector('.profile-card-content');
-        if (content) {
-            content.classList.add('updating');
-            void content.offsetWidth; // força reflow
-            content.classList.remove('updating');
-        }
+        this._restartAnimation();
+        this._wireCopyHandler();
+    }
 
-        const card = this.profileList.querySelector('.profile-card');
+    _restartAnimation() {
+        const content = this.container.querySelector('.profile-card-content');
+        if (!content) return;
+        content.classList.add('updating');
+        void content.offsetWidth;
+        content.classList.remove('updating');
+    }
+
+    _wireCopyHandler() {
+        const card = this.container.querySelector('.profile-card');
         if (!card) return;
-
-        const copyValue = (text) => {
+        const copyToClipboard = (text) => {
             if (!text) return Promise.resolve();
-            if (navigator.clipboard?.writeText) {
-                return navigator.clipboard.writeText(text);
-            }
-            // Fallback para browsers antigos
+            if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
             return new Promise((resolve) => {
                 const ta = document.createElement('textarea');
                 ta.value = text;
@@ -92,31 +82,31 @@ class Profile {
                 document.body.appendChild(ta);
                 ta.focus();
                 ta.select();
-                try { document.execCommand('copy'); } catch (_) { /* ignore */ }
+                try { document.execCommand('copy'); } catch (_) {}
                 document.body.removeChild(ta);
                 resolve();
             });
         };
 
-        // Delegação de cópia dentro do card
-    card.addEventListener('click', (e) => {
+        card.addEventListener('click', (e) => {
             const btn = e.target.closest('button[data-copy]');
             if (!btn) return;
-            const type = btn.getAttribute('data-copy');
-            const el = card.querySelector(`[data-field="${type}"]`);
+            const field = btn.getAttribute('data-copy');
+            const el = card.querySelector(`[data-field="${field}"]`);
             const value = el ? el.textContent.trim() : '';
             if (!value) return;
-            copyValue(value).then(() => {
-                if (btn.classList.contains('copy-icon-btn')) {
-                    btn.classList.add('copied');
-                    const icon = btn.querySelector('i');
-                    if (icon) icon.className = 'bi bi-clipboard-check';
-                    setTimeout(() => {
-                        btn.classList.remove('copied');
-                        if (icon) icon.className = 'bi bi-clipboard';
-                    }, 1300);
-                }
+            copyToClipboard(value).then(() => {
+                if (!btn.classList.contains('copy-icon-btn')) return;
+                btn.classList.add('copied');
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = 'bi bi-clipboard-check';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    if (icon) icon.className = 'bi bi-clipboard';
+                }, 1300);
             });
-        }); // listener permanente dentro do card, não empilha pois o card é recriado a cada novo perfil
+        });
     }
 }
+
+const Profile = ProfileCardRenderer;
