@@ -7,10 +7,10 @@ Generate a Git commit message for the following changes. The message should foll
 [Describe the changes made in detail, including new features, bug fixes, refactorings, documentation updates, performance improvements, etc.]
 
 **Example Gitmoji usage:**
-- ✨ :sparkles: for new features
-- 🐛 :bug: for bug fixes
-- 📝 :memo: for documentation updates
-- ♻️ :recycle: for code refactoring
+- :sparkles: for new features
+- :bug: for bug fixes
+- :memo: for documentation updates
+- :recycle: for code refactoring
 
 **Output Format:**
 <emoji> <type>(<scope>): <subject>
