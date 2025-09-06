@@ -1,5 +1,5 @@
-# Perfis Aleatórios
+# Random Profiles
 
-Praticando HTML, CSS e Javascript consumindo a API [Random User Generator](https://randomuser.me/)
+Practicing HTML, CSS and JavaScript by consuming the [Random User Generator](https://randomuser.me/) API.
 
-![](img/perfis-aleatorios.gif)
+![](img/random-profiles.gif)

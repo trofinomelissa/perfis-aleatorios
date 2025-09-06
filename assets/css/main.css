@@ -1,0 +1,282 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Paleta moderna para gêneros */
+:root {
+    /* Paleta mais vibrante */
+    --male-bg: #3b82f6;           /* Blue 500 */
+    --male-bg-accent: #1d4ed8;    /* Blue 700 */
+    --female-bg: #ec4899;         /* Pink 500 */
+    --female-bg-accent: #be185d;  /* Pink 700 */
+    --other-bg: #f59e0b;          /* Amber 500 */
+    --other-bg-accent: #d97706;   /* Amber 600 */
+    --on-gender-text: #ffffff;    /* Texto principal sobre fundo vibrante */
+    --on-gender-shadow: rgba(0,0,0,0.35);
+    --card-glow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.page-title {
+    margin: 2%;
+    font-size: 3em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+h4 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h5 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.profiles {
+   margin: 0 0 0 5%;
+}
+
+.profile {
+    display: inline-block;
+    padding: 5%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.profile-photo.male {
+    border: #74C9FC solid 4px;
+}
+
+.profile-photo.female {
+    border: #FF8AB5 solid 4px;
+}
+
+.profile-photo.other-gender {
+    border: #FFC180 solid 4px; 
+}
+
+
+.profile-photo {
+    border-radius: 12px;
+    width: 140px; /* ~55%-70% do tamanho grande original */
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    border: 4px solid rgba(255,255,255,0.7);
+    background: #fff;
+}
+/* Destaque para nome, email, cidade e país */
+.profile-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: .3rem;
+}
+.profile-email {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: .25rem;
+    word-break: break-all;
+}
+.profile-location {
+    font-size: .95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: .2rem;
+}
+
+
+.female {
+    background: linear-gradient(160deg, var(--female-bg) 0%, var(--female-bg-accent) 90%);
+}
+
+.male {
+    background: linear-gradient(160deg, var(--male-bg) 0%, var(--male-bg-accent) 90%);
+}
+
+.other-gender {
+    background: linear-gradient(160deg, var(--other-bg) 0%, var(--other-bg-accent) 90%);
+}
+
+.text-data {
+    margin: 10px;
+}
+
+/* Layout novo: foto esquerda, texto direita */
+.profile-card.card {
+    padding: 1.25rem 1.5rem;
+    border: none;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Wrapper animável (exclui botão) */
+.profile-card-content {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: flex-start;
+    animation: cardFadeIn .55s cubic-bezier(.25,.6,.3,1) both;
+}
+
+.profile-card-content .photo-col {
+    flex: 0 0 auto;
+}
+
+.profile-card-content .text-col {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-fields-group {
+    display: grid;
+    grid-template-columns: 30px 1fr; /* ícone | valor */
+    column-gap: .6rem;
+    row-gap: .55rem;
+    font-size: .95rem;
+    align-items: center; /* alinha verticalmente botão e texto */
+}
+
+.profile-label {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-size: .65rem;
+    opacity: .85;
+    margin-top: .35rem;
+}
+
+.copy-icon-btn {
+    --btn-size: 26px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border: none;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: background .18s, transform .12s, box-shadow .18s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+}
+.copy-icon-btn:hover { background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.copy-icon-btn:active { transform: scale(.9); }
+.copy-icon-btn i { font-size: .9rem; color: #111; }
+.copy-icon-btn.copied { background: #198754; }
+.copy-icon-btn.copied i { color: #fff; }
+
+.profile-value { cursor: text; line-height: 1.25; display: flex; align-items: center; min-height: 26px; }
+
+.profile-value { cursor: text; }
+
+.copy-buttons { margin-top: .75rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.copy-buttons button { font-size: .7rem; letter-spacing: .5px; }
+
+.copy-feedback { font-size: .65rem; margin-left: .5rem; color: #111; font-weight: 600; }
+
+/* Melhor contraste sobre fundos coloridos */
+.female, .male, .other-gender {
+    color: var(--on-gender-text);
+    position: relative;
+    text-shadow: 0 1px 2px var(--on-gender-shadow);
+}
+
+/* Ajustes de cores internas para melhor contraste */
+.female .profile-email, .female .profile-location, .female .profile-name,
+.male .profile-email, .male .profile-location, .male .profile-name,
+.other-gender .profile-email, .other-gender .profile-location, .other-gender .profile-name {
+    color: var(--on-gender-text);
+}
+
+/* Botões ícones sobre fundo vibrante: versão translúcida clara */
+.female .copy-icon-btn, .male .copy-icon-btn, .other-gender .copy-icon-btn {
+    background: rgba(255,255,255,0.85);
+}
+.female .copy-icon-btn i, .male .copy-icon-btn i, .other-gender .copy-icon-btn i { color: #111; }
+.female .copy-icon-btn.copied, .male .copy-icon-btn.copied, .other-gender .copy-icon-btn.copied { background:#16a34a; }
+.female .copy-icon-btn.copied i, .male .copy-icon-btn.copied i, .other-gender .copy-icon-btn.copied i { color:#fff; }
+
+.profile-card.card:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .profile-card.card { flex-direction: column; align-items: center; text-align: center; }
+    .profile-fields-group { grid-template-columns: 30px 1fr; }
+    .profile-photo { width: 160px; height: 160px; }
+}
+
+/* Botão Novo Perfil dentro do card */
+.new-profile-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 14px;
+    background: #111;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    transition: background .2s, transform .15s, box-shadow .25s;
+    z-index: 10; /* garantir que fique acima do conteúdo animado */
+    touch-action: manipulation;
+}
+.new-profile-btn:hover { background: #222; box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+.new-profile-btn:active { transform: scale(.9); }
+.new-profile-btn i { pointer-events: none; }
+.new-profile-btn:focus { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Área de clique levemente ampliada (hit area) */
+.new-profile-btn::after {
+    content: "";
+    position: absolute;
+    inset: -6px; /* aumenta área sem mudar visual */
+    border-radius: 18px;
+}
+
+/* Garantir que conteúdo não sobreponha botão */
+.profile-card-content { position: relative; z-index: 1; }
+.profile-card.card.updating { animation: none; }
+.profile-card-content.updating { animation: none !important; }
+
+@keyframes cardFadeIn {
+    0% { opacity: 0; transform: translateY(14px) scale(.97); filter: blur(3px); }
+    60% { opacity: 1; transform: translateY(0) scale(1.01); filter: blur(0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .profile-card.card { animation: none !important; }
+}
+
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
