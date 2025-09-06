@@ -11,6 +11,11 @@ Generate a Git commit message for the following changes. The message should foll
 - :bug: for bug fixes
 - :memo: for documentation updates
 - :recycle: for code refactoring
+- :zap: for performance improvements
+- :art: for improve structure / format of the code.
+- :fire: for removing code or files
+- :white_check_mark: for adding or updating tests
+- :test_tube: add a failing test
 
 **Output Format:**
 <emoji> <type>(<scope>): <subject>
