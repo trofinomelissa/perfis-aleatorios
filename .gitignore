@@ -1,0 +1,51 @@
+# Node dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Coverage
+coverage/
+
+# Output / dist (se futuramente houver build)
+dist/
+build/
+
+# Sistema operacional / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/**
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Env / credenciais
+.env
+.env.*
+!.env.example
+
+# Cache diversas ferramentas
+.jest-cache/
+.jest-test-sequencer-cache/
+.cache/
+.parcel-cache/
+.next/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+*~
+
+# Relatórios
+reports/
+
+# Lock opcional (caso queira padronizar apenas npm)
+# yarn.lock
+# pnpm-lock.yaml
+
+# Coverage para jest
+lcov.info

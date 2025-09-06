@@ -8,27 +8,8 @@ function sanitize(str) {
         .replace(/'/g, '&#39;');
 }
 
-class ProfileCardRenderer {
-    constructor() {
-        this.container = document.getElementById('profiles');
-    }
-
-    render(data) {
-        if (!data || !Array.isArray(data.results) || data.results.length === 0) {
-            console.error('Invalid data: results array is missing or empty.');
-            return;
-        }
-
-        const user = data.results[0];
-
-        const genderClass = user.gender === 'female' ? 'female' : user.gender === 'male' ? 'male' : 'other-gender';
-        const fullName = `${sanitize(user.name.first)} ${sanitize(user.name.last)}`;
-        const email = sanitize(user.email);
-        const cityState = `${sanitize(user.location.city)}, ${sanitize(user.location.state)}`;
-        const country = sanitize(user.location.country);
-        const pictureLarge = sanitize(user.picture.large);
-
-        this.container.innerHTML = `
+function profileCardHtml({ genderClass, pictureLarge, fullName, email, cityState, country }) {
+    return `
         <div class="col-12">
             <div class="profile-card card ${genderClass}">
                 <button id="btnNewProfile" class="new-profile-btn" aria-label="Gerar novo perfil" title="Novo perfil">
@@ -55,6 +36,30 @@ class ProfileCardRenderer {
                 </div>
             </div>
         </div>`;
+}
+
+class ProfileCardRenderer {
+    constructor() {
+        this.container = document.getElementById('profiles');
+    }
+
+    render(data) {
+        if (!data || !Array.isArray(data.results) || data.results.length === 0) {
+            console.error('Invalid data: results array is missing or empty.');
+            return;
+        }
+
+        const user = data.results[0];
+        const viewModel = {
+            genderClass: user.gender === 'female' ? 'female' : user.gender === 'male' ? 'male' : 'other-gender',
+            fullName: `${sanitize(user.name.first)} ${sanitize(user.name.last)}`,
+            email: sanitize(user.email),
+            cityState: `${sanitize(user.location.city)}, ${sanitize(user.location.state)}`,
+            country: sanitize(user.location.country),
+            pictureLarge: sanitize(user.picture.large)
+        };
+
+        this.container.innerHTML = profileCardHtml(viewModel);
 
         this._restartAnimation();
         this._wireCopyHandler();
@@ -88,25 +93,28 @@ class ProfileCardRenderer {
             });
         };
 
-        card.addEventListener('click', (e) => {
+        card.addEventListener('click', async (e) => {
             const btn = e.target.closest('button[data-copy]');
             if (!btn) return;
             const field = btn.getAttribute('data-copy');
             const el = card.querySelector(`[data-field="${field}"]`);
             const value = el ? el.textContent.trim() : '';
             if (!value) return;
-            copyToClipboard(value).then(() => {
-                if (!btn.classList.contains('copy-icon-btn')) return;
-                btn.classList.add('copied');
-                const icon = btn.querySelector('i');
-                if (icon) icon.className = 'bi bi-clipboard-check';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    if (icon) icon.className = 'bi bi-clipboard';
-                }, 1300);
-            });
+            await copyToClipboard(value);
+            if (!btn.classList.contains('copy-icon-btn')) return;
+            btn.classList.add('copied');
+            const icon = btn.querySelector('i');
+            if (icon) icon.className = 'bi bi-clipboard-check';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                if (icon) icon.className = 'bi bi-clipboard';
+            }, 1300);
         });
     }
 }
 
 const Profile = ProfileCardRenderer;
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { sanitize, profileCardHtml, ProfileCardRenderer, Profile };
+}
